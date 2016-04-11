@@ -1,0 +1,18 @@
+kafka:
+ image: spotify/kafka
+ environment:
+  - KAFKA=localhost:9092
+  - ZOOKEEPER=localhost:2181
+ expose:
+  - "9092"
+  - "2181"
+cassandra:
+ image: cassandra:latest
+spark: 
+ image: sequenceiq/spark:1.6.0
+ command: bash
+ volumes:
+  - ./target/scala-2.10:/app
+ links:
+  - kafka
+  - cassandra
